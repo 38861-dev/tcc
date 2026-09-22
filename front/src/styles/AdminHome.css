@@ -1,0 +1,66 @@
+.admin-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #f7f1eb;
+  padding: 48px 24px;
+}
+
+.admin-card {
+  width: min(560px, 100%);
+  padding: 52px 42px;
+  border-radius: 30px;
+  background: #fff;
+  border: 1px solid rgba(180, 122, 99, 0.18);
+  box-shadow: 0 30px 70px rgba(118, 89, 75, 0.08);
+  display: grid;
+  gap: 18px;
+  text-align: center;
+  justify-items: center;
+}
+
+.admin-card .tag {
+  display: inline-flex;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #f8ebe2;
+  border: 1px solid rgba(180, 122, 99, 0.18);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7e5d4b;
+}
+
+.admin-card h1 {
+  margin: 0;
+  font-size: clamp(34px, 4vw, 48px);
+  color: #3d2f2a;
+}
+
+.admin-card p {
+  margin: 0;
+  max-width: 40ch;
+  color: #6e5a50;
+  line-height: 1.8;
+}
+
+.admin-logout {
+  margin-top: 14px;
+  border: none;
+  background: #3d2f2a;
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.admin-logout:hover {
+  background: #2a201c;
+  transform: scale(1.02);
+}

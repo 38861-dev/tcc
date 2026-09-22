@@ -1,0 +1,146 @@
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #f7f1eb;
+  padding: 48px 24px;
+}
+
+.login-card {
+  width: min(520px, 100%);
+  padding: 42px;
+  border-radius: 30px;
+  background: #fff;
+  border: 1px solid rgba(180, 122, 99, 0.18);
+  box-shadow: 0 30px 70px rgba(118, 89, 75, 0.08);
+  display: grid;
+  gap: 22px;
+}
+
+.login-card .tag {
+  display: inline-flex;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #f8ebe2;
+  border: 1px solid rgba(180, 122, 99, 0.18);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7e5d4b;
+  width: fit-content;
+}
+
+.login-card h1 {
+  margin: 0;
+  font-size: clamp(34px, 4vw, 46px);
+  color: #3d2f2a;
+}
+
+.login-card p {
+  margin: 0;
+  color: #6e5a50;
+  line-height: 1.8;
+}
+
+.login-form {
+  display: grid;
+  gap: 20px;
+}
+
+.login-form label {
+  display: grid;
+  gap: 10px;
+  color: #3d2f2a;
+  font-weight: 600;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(180, 122, 99, 0.18);
+  background: #fcf4ee;
+  transition: border-color 0.2s ease;
+}
+
+.input-box:focus-within {
+  border-color: #b47a63;
+}
+
+.input-box-error {
+  border-color: #c0392b;
+}
+
+.input-box input,
+.input-box select {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #3d2f2a;
+  font: inherit;
+}
+
+.input-box button {
+  background: none;
+  border: none;
+  color: #3d2f2a;
+}
+
+.field-error {
+  color: #c0392b;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.field-success {
+  color: #2f7d4f;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.login-submit {
+  width: 100%;
+  border: none;
+  background: #3d2f2a;
+  color: #fff;
+  padding: 16px 0;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.login-submit:hover {
+  background: #2a201c;
+  transform: scale(1.01);
+}
+
+.login-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.back-button {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: #7e5d4b;
+  padding: 14px 0;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.back-button:hover {
+  background: #f8ebe2;
+}
