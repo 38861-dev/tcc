@@ -1,0 +1,72 @@
+.agenda-panel {
+  min-height: 100vh;
+  padding: 48px 32px;
+  background: linear-gradient(180deg, #0f0f10 0%, #141414 100%);
+  color: #ffffff;
+}
+
+.agenda-hero {
+  max-width: 960px;
+  margin: 0 auto 32px;
+}
+
+.agenda-hero .tag {
+  display: inline-flex;
+  margin-bottom: 16px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(191, 144, 97, 0.14);
+  border: 1px solid rgba(191, 144, 97, 0.22);
+  color: #f4d7b8;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.agenda-hero h1 {
+  margin: 0;
+  font-size: clamp(34px, 4vw, 54px);
+  letter-spacing: -0.05em;
+}
+
+.agenda-hero p {
+  margin: 14px 0 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.agenda-grid {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.agenda-card {
+  padding: 24px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(191, 144, 97, 0.16);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
+}
+
+.agenda-card span {
+  display: block;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.agenda-card strong {
+  font-size: 40px;
+  color: #f4d7b8;
+}
+
+@media (max-width: 900px) {
+  .agenda-grid {
+    grid-template-columns: 1fr;
+  }
+}
