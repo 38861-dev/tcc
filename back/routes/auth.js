@@ -45,21 +45,21 @@ router.post("/cadastro", async (req, res) => {
   try {
     const senhaHash = await bcrypt.hash(senha, SALT_ROUNDS);
 
-    const [result] = await pool.query(
-      "INSERT INTO usuarios (nome, email, senha_hash, tipo) VALUES (?, ?, ?, 'cliente')",
+    const result = await pool.query(
+      "INSERT INTO usuarios (nome, email, senha_hash, tipo) VALUES ($1, $2, $3, 'cliente') RETURNING id",
       [nome || null, email.trim().toLowerCase(), senhaHash]
     );
 
     return res.status(201).json({
       usuario: {
-        id: result.insertId,
+        id: result.rows[0].id,
         nome: nome || null,
         email: email.trim().toLowerCase(),
         tipo: "cliente",
       },
     });
   } catch (error) {
-    if (error.code === "ER_DUP_ENTRY") {
+    if (error.code === "23505") {
       return res.status(409).json({ erro: "Este email já está cadastrado." });
     }
     console.error("Erro ao cadastrar usuário:", error);
@@ -75,11 +75,11 @@ router.post("/login", async (req, res) => {
   }
 
   try {
-    const [rows] = await pool.query(
-      "SELECT id, nome, email, senha_hash, ativo, tipo FROM usuarios WHERE email = ? LIMIT 1",
+    const result = await pool.query(
+      "SELECT id, nome, email, senha_hash, ativo, tipo FROM usuarios WHERE email = $1 LIMIT 1",
       [email.trim().toLowerCase()]
     );
-    const usuario = rows[0];
+    const usuario = result.rows[0];
 
     if (!usuario || !usuario.senha_hash) {
       return res.status(401).json({ erro: "Email ou senha inválidos." });
@@ -111,11 +111,11 @@ router.get("/me", async (req, res) => {
 
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    const [rows] = await pool.query(
-      "SELECT id, nome, email, ativo, tipo FROM usuarios WHERE id = ? LIMIT 1",
+    const result = await pool.query(
+      "SELECT id, nome, email, ativo, tipo FROM usuarios WHERE id = $1 LIMIT 1",
       [payload.sub]
     );
-    const usuario = rows[0];
+    const usuario = result.rows[0];
 
     if (!usuario || !usuario.ativo) {
       return res.status(401).json({ erro: "Sessão inválida ou usuário inativo." });
