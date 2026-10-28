@@ -1,4 +1,4 @@
-import { X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const serviceDetails = {
@@ -26,16 +26,35 @@ const serviceDetails = {
     description: "Finalização com movimento, brilho e acabamento escolhido para a ocasião.",
     care: "Traga uma referência do acabamento que você deseja para a escova.",
   },
+  Penteado: {
+    description: "Penteado personalizado para completar seu visual em uma ocasião especial.",
+    care: "Venha com os cabelos limpos e secos e traga uma referência do estilo desejado.",
+  },
 };
 
 export default function ServicesGrid({
   filteredProducts,
-  categoryPhotoCards,
   categoryNames,
   formatBRL,
   onAddToCart,
 }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [activeImages, setActiveImages] = useState({});
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  const openProductDetails = (product, imageIndex) => {
+    setSelectedProduct(product);
+    setSelectedImageIndex(imageIndex);
+  };
+
+  const changeSelectedImage = (direction) => {
+    const images = selectedProduct?.images;
+    if (!images?.length) return;
+
+    const nextIndex = (selectedImageIndex + direction + images.length) % images.length;
+    setSelectedImageIndex(nextIndex);
+    setActiveImages((current) => ({ ...current, [selectedProduct.id]: nextIndex }));
+  };
 
   useEffect(() => {
     if (!selectedProduct) return undefined;
@@ -53,54 +72,58 @@ export default function ServicesGrid({
         <div className="container">
           <h3>Nossos Serviços</h3>
           <div className="services-grid">
-            {filteredProducts.map((product) => (
-              <article className="product-card" key={product.id}>
-                <button
-                  className="service-preview"
-                  onClick={() => setSelectedProduct(product)}
-                  type="button"
-                  aria-label={`Ver detalhes de ${product.name}`}
-                >
-                  <div
-                    className="service-cover"
-                    style={{
-                      backgroundImage: `linear-gradient(135deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.1) 100%), url('${product.image}')`,
-                    }}
-                  />
-                </button>
-                <div className="card-content">
-                  <span className="category-text">{categoryNames[product.category] || product.category}</span>
-                  <h4>{product.name}</h4>
-                  <p className="duration">{product.duration}</p>
-                  <div className="card-bottom">
-                    <strong>{formatBRL(product.price)}</strong>
-                    <button onClick={() => onAddToCart(product.id)} type="button">
-                      Agendar
-                    </button>
-                  </div>
-                </div>
-              </article>
-            ))}
-            {categoryPhotoCards.map((photo) => {
-              const product = filteredProducts.find((item) => item.category === photo.category);
-              if (!product) return null;
+            {filteredProducts.map((product) => {
+              const images = product.images ?? [product.image];
+              const activeImageIndex = activeImages[product.id] ?? 0;
+              const activeImage = images[activeImageIndex];
 
-              const photoProduct = { ...product, image: photo.image };
               return (
-                <article className="product-card" key={photo.id}>
-                  <button
-                    className="service-preview"
-                    onClick={() => setSelectedProduct(photoProduct)}
-                    type="button"
-                    aria-label={`Ver detalhes de ${product.name}`}
-                  >
-                    <div
-                      className="service-cover"
-                      style={{
-                        backgroundImage: `linear-gradient(135deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.1) 100%), url('${photo.image}')`,
-                      }}
-                    />
-                  </button>
+                <article className="product-card" key={product.id}>
+                  <div className="service-gallery">
+                    <button
+                      className="service-preview"
+                      onClick={() => openProductDetails(product, activeImageIndex)}
+                      type="button"
+                      aria-label={`Ver detalhes de ${product.name}`}
+                    >
+                      <div
+                        className="service-cover"
+                        style={{
+                          backgroundImage: `linear-gradient(135deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.1) 100%), url('${activeImage}')`,
+                        }}
+                      />
+                    </button>
+                    {images.length > 1 && (
+                      <>
+                        <button
+                          className="service-gallery-arrow service-gallery-arrow-previous"
+                          onClick={() =>
+                            setActiveImages((current) => ({
+                              ...current,
+                              [product.id]: (activeImageIndex - 1 + images.length) % images.length,
+                            }))
+                          }
+                          type="button"
+                          aria-label={`Foto anterior de ${product.name}`}
+                        >
+                          <ChevronLeft size={16} />
+                        </button>
+                        <button
+                          className="service-gallery-arrow service-gallery-arrow-next"
+                          onClick={() =>
+                            setActiveImages((current) => ({
+                              ...current,
+                              [product.id]: (activeImageIndex + 1) % images.length,
+                            }))
+                          }
+                          type="button"
+                          aria-label={`Próxima foto de ${product.name}`}
+                        >
+                          <ChevronRight size={16} />
+                        </button>
+                      </>
+                    )}
+                  </div>
                   <div className="card-content">
                     <span className="category-text">{categoryNames[product.category] || product.category}</span>
                     <h4>{product.name}</h4>
@@ -136,7 +159,32 @@ export default function ServicesGrid({
             >
               <X size={20} />
             </button>
-            <img src={selectedProduct.image} alt={`Imagem de ${selectedProduct.name}`} />
+            <div className="service-modal-gallery">
+              <img
+                src={selectedProduct.images?.[selectedImageIndex] ?? selectedProduct.image}
+                alt={`Imagem de ${selectedProduct.name}`}
+              />
+              {selectedProduct.images?.length > 1 && (
+                <>
+                  <button
+                    className="service-gallery-arrow service-gallery-arrow-previous"
+                    onClick={() => changeSelectedImage(-1)}
+                    type="button"
+                    aria-label={`Foto anterior de ${selectedProduct.name}`}
+                  >
+                    <ChevronLeft size={16} />
+                  </button>
+                  <button
+                    className="service-gallery-arrow service-gallery-arrow-next"
+                    onClick={() => changeSelectedImage(1)}
+                    type="button"
+                    aria-label={`Próxima foto de ${selectedProduct.name}`}
+                  >
+                    <ChevronRight size={16} />
+                  </button>
+                </>
+              )}
+            </div>
             <div>
               <span className="section-kicker">{categoryNames[selectedProduct.category]}</span>
               <h2 id="service-modal-title">{selectedProduct.name}</h2>

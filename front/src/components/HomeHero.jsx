@@ -7,6 +7,9 @@ export default function HomeHero({
   onToggleHistory,
   onOpenCart,
   onOpenLogin,
+  onOpenDashboard,
+  onLogout,
+  user,
 }) {
   return (
     <>
@@ -29,9 +32,23 @@ export default function HomeHero({
               <span>Meus Agendamentos</span>
               {!hideBadgeUntilNextAdd && cartCount > 0 && <span className="cart-count">{cartCount}</span>}
             </button>
-            <button className="account-btn" onClick={onOpenLogin} type="button">
-              <span>Login</span>
-            </button>
+            {user ? (
+              <>
+                {user.tipo === "administrador" && (
+                  <button className="account-btn" onClick={onOpenDashboard} type="button">
+                    Painel
+                  </button>
+                )}
+                <span className="account-name">Olá, {user.nome || user.email}</span>
+                <button className="account-btn" onClick={onLogout} type="button">
+                  Sair
+                </button>
+              </>
+            ) : (
+              <button className="account-btn" onClick={onOpenLogin} type="button">
+                <span>Login</span>
+              </button>
+            )}
           </div>
         </div>
       </header>

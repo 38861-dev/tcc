@@ -180,7 +180,6 @@ export default function Dashboard({ setPage, onLogout }) {
           ))}
         </nav>
         <div className="sidebar-footer">
-          <span>Modo demonstração</span>
           <button onClick={onLogout || (() => setPage("home"))} type="button">
             <LogOut size={18} /> Sair
           </button>
@@ -201,10 +200,6 @@ export default function Dashboard({ setPage, onLogout }) {
             <div><strong>Administrador</strong><small>Equipe R.tual</small></div>
           </div>
         </header>
-
-        <div className="dashboard-demo-banner">
-          Demonstração local: estes dados ficam somente neste navegador e não são protegidos por login real.
-        </div>
 
         {activeSection === "overview" && (
           <>

@@ -26,6 +26,16 @@
   gap: 10px;
 }
 
+.account-name {
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .account-btn {
   min-height: 42px;
   padding: 0 17px;
@@ -311,6 +321,10 @@
   box-shadow: 0 20px 36px rgba(0, 0, 0, 0.13);
 }
 
+.service-gallery {
+  position: relative;
+}
+
 .service-preview {
   position: relative;
   width: 100%;
@@ -335,6 +349,35 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.service-gallery-arrow {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: var(--white);
+  background: rgba(20, 18, 16, 0.68);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background 0.2s ease;
+}
+
+.service-gallery-arrow:hover {
+  background: rgba(20, 18, 16, 0.9);
+}
+
+.service-gallery-arrow-previous {
+  left: 10px;
+}
+
+.service-gallery-arrow-next {
+  right: 10px;
 }
 
 .card-content {
@@ -409,15 +452,38 @@
   animation: confirmationIn 0.22s ease;
 }
 
-.service-modal > img {
+.service-modal-gallery {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: 360px;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 20px 0 0 20px;
+}
+
+.service-modal-gallery > img {
+  display: block;
   width: 100%;
   height: 100%;
   min-height: 360px;
   object-fit: cover;
 }
 
+.service-modal-gallery .service-gallery-arrow-previous {
+  left: 8px;
+}
+
+.service-modal-gallery .service-gallery-arrow-next {
+  right: 8px;
+}
+
 .service-modal > div {
   padding: 38px 32px 32px;
+}
+
+.service-modal > .service-modal-gallery {
+  padding: 0;
 }
 
 .service-modal h2 {
@@ -1305,7 +1371,13 @@
     overflow-y: auto;
   }
 
-  .service-modal > img {
+  .service-modal-gallery {
+    height: 220px;
+    min-height: 0;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .service-modal-gallery > img {
     height: 220px;
     min-height: 0;
   }

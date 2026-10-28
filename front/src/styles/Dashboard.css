@@ -92,12 +92,6 @@
   border-top: 1px solid #f0ece7;
 }
 
-.sidebar-footer > span {
-  padding: 0 8px;
-  color: #a49a90;
-  font-size: 11px;
-}
-
 .dashboard-content {
   width: min(100%, 1500px);
   margin: 0 auto;
@@ -166,17 +160,6 @@
   font-size: 6px;
   font-weight: 600;
   line-height: 1.2;
-}
-
-.dashboard-demo-banner {
-  margin-bottom: 24px;
-  padding: 11px 14px;
-  border: 1px solid #eadfcf;
-  border-radius: 10px;
-  color: #735a3b;
-  background: #fbf6ee;
-  font-size: 12px;
-  line-height: 1.5;
 }
 
 .dashboard-welcome {
@@ -489,8 +472,7 @@
     padding: 0 4px 13px;
   }
 
-  .sidebar-caption,
-  .sidebar-footer > span {
+  .sidebar-caption {
     display: none;
   }
 

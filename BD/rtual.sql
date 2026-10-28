@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `email` VARCHAR(50) NOT NULL,
   `senha_hash` VARCHAR(255) NOT NULL,
   `nome` VARCHAR(100) DEFAULT NULL,
+  `tipo` ENUM('cliente', 'administrador') NOT NULL DEFAULT 'cliente',
   `ativo` TINYINT(1) DEFAULT 1,
   `criado_em` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),

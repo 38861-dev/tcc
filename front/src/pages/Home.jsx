@@ -7,9 +7,9 @@ import CartSidebar from "../components/CartSidebar";
 import ToastStack from "../components/ToastStack";
 import "../styles/Home.css";
 import useSalonScheduling from "../hooks/useSalonScheduling";
-import { categories, categoryNames, categoryPhotoCards, products } from "../data/salonData";
+import { categories, categoryNames, products } from "../data/salonData";
 
-export default function Home({ setPage }) {
+export default function Home({ setPage, user, onLogout }) {
   const {
     agendamentos,
     addToCart,
@@ -46,6 +46,9 @@ export default function Home({ setPage }) {
         onToggleHistory={() => setIsHistoryOpen((prev) => !prev)}
         onOpenCart={() => setIsCartOpen(true)}
         onOpenLogin={() => setPage("login")}
+        onOpenDashboard={() => setPage("dashboard")}
+        onLogout={onLogout}
+        user={user}
       />
 
       <CategoryTabs
@@ -57,9 +60,6 @@ export default function Home({ setPage }) {
       <ServicesGrid
         key={currentCategory}
         filteredProducts={filteredProducts}
-        categoryPhotoCards={categoryPhotoCards.filter(
-          (photo) => currentCategory === "all" || photo.category === currentCategory,
-        )}
         categoryNames={categoryNames}
         formatBRL={(value) => `R$ ${value.toFixed(2).replace(".", ",")}`}
         onAddToCart={addToCart}
